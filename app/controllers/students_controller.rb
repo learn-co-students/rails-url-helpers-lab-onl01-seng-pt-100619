@@ -1,4 +1,5 @@
-class StudentsController < ApplicationController
+require 'pry'
+ class StudentsController < ApplicationController
   before_action :set_student, only: :show
   
   def index
@@ -7,6 +8,14 @@ class StudentsController < ApplicationController
 
   def show
   end
+
+  def activate 
+    student = Student.find_by(id: params[:id])
+    student.active = !student.active
+    student.save
+
+    redirect_to student_path(student)
+  end 
 
   private
 
